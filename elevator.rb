@@ -26,6 +26,23 @@ class Elevator
     check_floor
   end
 
+  def check_floor
+    if @passengers.map(&:floor).include?(current_floor)
+      puts "Passenger(s) dropped off on floor #{current_floor}"
+      @passengers = @passengers.reject { |p| p.floor == current_floor }
+    elsif pickup?
+      puts "Passengers(s) picked up from floor #{current_floor}"
+      @elevator_requests = @elevator_requests.reject { |r| r.floor == current_floor }
+    else
+      return
+    end
+  end
+
+  def pickup?
+    @elevator_requests.map(&:floor).include?(current_floor) &&
+      @elevator_requests.map(&:direction).include?(current_direction)
+  end
+
   def passengers
     @passengers
   end
