@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative ''
+
 class Elevator
   def initialize(floors)
     @floors = floors
@@ -7,12 +9,14 @@ class Elevator
     @current_direction = nil
     @current_floor = rand(1..floors)
     @elevator_requests = []
+    @picked_up = false
   end
 
   attr_reader :floors
   attr_accessor :current_floor, :current_direction
 
   def move
+    @picked_up = false
     current_direction = nil if empty?
     return unless current_direction
     case current_direction
@@ -33,6 +37,7 @@ class Elevator
     elsif pickup?
       puts "Passengers(s) picked up from floor #{current_floor}"
       @elevator_requests = @elevator_requests.reject { |r| r.floor == current_floor }
+      @picked_up = true
     else
       return
     end
@@ -58,6 +63,6 @@ class Elevator
       (floor..current_floor).size
     else
       (current_floor..floor).size
-    end  
+    end
   end
 end

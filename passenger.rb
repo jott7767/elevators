@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Passenger
-  def initialize(floor_request)
-    @floor_request = floor_request
+  def initialize(floor)
+    @floor = floor
   end
 
-  def floor
-    @floor_request.floor
-  end
+  attr_reader :floor
 end

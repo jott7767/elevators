@@ -22,27 +22,37 @@ class ElevatorSystem
 
   def pick_best_elevator(floor, direction)
     if all_busy?
-      closest_empty(floor_direction)
+      best_empty(floor)
     else
-      closest_busy(floor, direction)
+      best_busy(floor, direction)
     end
   end
 
-  def closest_empty(floor, direction)
-    elevator = elevators.first
+  def best_empty(floor)
+    empty = elevators.map(&:empty)
+    closest(empty, floor)
+  end
+
+  def closest(els, floor)
+    elevator  = els.first
     best      = elevator.proximity_to(floor)
-    @elevators.map(&:empty).map do |el|
+    @elevators.map do |el|
       elevator = el if el.proximity_to(floor) < best
     end
     elevator
   end
 
-  def closest_busy
-
+  def best_busy(floor, direction)
+    same_dir = @elevators.select { |el| el.current_direction == direction }
+    closest(same_dir, floor)
   end
 
   def all_busy?
     !@elevators.map(&:empty).any?
   end
 
+  def floor_request(floor)
+    els = elevators.map(&:picked_up).select{ |x| x.current_floor != floor }
+    els.first.passengers << Passenger.new(floor)
+  end
 end
