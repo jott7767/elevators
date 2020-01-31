@@ -3,9 +3,8 @@
 class FloorRequest
   def initialize(floor, direction)
     @floor = floor
-    @direction = direction
   end
 
-  attr_reader :floor, :direction
+  attr_reader :floor
 
 end

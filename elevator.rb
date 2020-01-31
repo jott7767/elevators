@@ -5,21 +5,17 @@ class Elevator
     @floors = floors
     @passengers = []
     @current_direction = nil
+    @current_floor = rand(1..floors)
   end
 
-  def current_direction
-
-  end
+  attr_reader :floors
+  attr_accessor :current_floor, :current_direction
 
   def passengers
 
   end
 
   def busy?
-
-  end
-
-  def floor_requests
 
   end
 end
