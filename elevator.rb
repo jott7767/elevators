@@ -50,4 +50,14 @@ class Elevator
   def empty?
     @passengers.empty? && @elevator_requests.empty?
   end
+
+  def proximity_to(floor)
+    if floor == current_floor
+      0
+    elsif floor < current_floor
+      (floor..current_floor).size
+    else
+      (current_floor..floor).size
+    end  
+  end
 end

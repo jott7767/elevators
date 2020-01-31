@@ -29,11 +29,12 @@ class ElevatorSystem
   end
 
   def closest_empty(floor, direction)
-    best_elevator = nil
+    elevator = elevators.first
+    best      = elevator.proximity_to(floor)
     @elevators.map(&:empty).map do |el|
-
-      best_elevator = el
+      elevator = el if el.proximity_to(floor) < best
     end
+    elevator
   end
 
   def closest_busy
