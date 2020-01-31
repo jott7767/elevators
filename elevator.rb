@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative ''
-
 class Elevator
   def initialize(floors)
     @floors = floors
